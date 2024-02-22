@@ -36,7 +36,7 @@ const formElements = [
     type: "radio",
     name: "gender",
     required: true,
-    options: ["Male", "Female", "Other"],
+    options: ["Male", "Female"],
   },
   {
     label: "Choice of Food:",
