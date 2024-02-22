@@ -1,25 +1,37 @@
+const H = document.createElement("h1");
+H.id = "title";
+H.textContent = "Fill the Details";
+document.body.appendChild(H);
+const P = document.createElement("p");
+P.id = "description";
+P.textContent = "Fill the Details";
+document.body.appendChild(P);
+const formGroup = document.createElement("div");
+formGroup.className = "form-group";
+
 const form = document.createElement("form");
-form.id = "myForm";
+form.id = "form";
 
 // Create form elements
 const formElements = [
   {
     label: "First Name:",
     type: "text",
-    id: "firstName",
+    id: "first-name",
     name: "firstName",
+
     required: true,
   },
   {
     label: "Last Name:",
     type: "text",
-    id: "lastName",
+    id: "last-name",
     name: "lastName",
     required: true,
   },
   {
     label: "Address:",
-    type: "text",
+    type: "textarea",
     id: "address",
     name: "address",
     required: true,
@@ -81,15 +93,22 @@ formElements.forEach((element) => {
       const radioLabel = document.createElement("label");
       radioLabel.textContent = optionText;
 
-      form.appendChild(radioInput);
-      form.appendChild(radioLabel);
+      formGroup.appendChild(radioInput);
+      formGroup.appendChild(radioLabel);
     });
   } else {
     const input = document.createElement(
-      element.type === "select" ? "select" : "input"
+      element.type === "select"
+        ? "select"
+        : element.type === "input"
+        ? "input"
+        : element.type === "textarea"
+        ? "textarea"
+        : "input"
     );
     input.type = element.type;
     input.id = element.id;
+    input.placeholder = "Type here";
     input.name = element.name;
     if (element.required) {
       input.required = true;
@@ -103,22 +122,27 @@ formElements.forEach((element) => {
       });
     }
 
-    form.appendChild(label);
-    form.appendChild(input);
+    formGroup.appendChild(label);
+    formGroup.appendChild(input);
   }
 });
 // Add submit button
 const submitButton = document.createElement("input");
 submitButton.type = "submit";
+submitButton.id = "submit";
+submitButton.classList.add("btn", "btn-primary");
 submitButton.value = "Submit";
-form.appendChild(submitButton);
+formGroup.appendChild(submitButton);
 
 // Append form to the document body
+
+form.appendChild(formGroup);
 document.body.appendChild(form);
 
 // Create table element
 const table = document.createElement("table");
 table.id = "dataTable";
+table.className = "table";
 
 // Create table header
 const tableHeader = document.createElement("thead");
@@ -146,7 +170,7 @@ table.appendChild(tableBody);
 
 // Append table to the document body
 document.body.appendChild(table);
-document.getElementById("myForm").addEventListener("submit", function (event) {
+document.getElementById("form").addEventListener("submit", function (event) {
   event.preventDefault();
 
   var formData = new FormData(this);
@@ -160,5 +184,5 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
   });
 
   tableBody.appendChild(newRow);
-  document.getElementById("myForm").reset();
+  document.getElementById("form").reset();
 });
