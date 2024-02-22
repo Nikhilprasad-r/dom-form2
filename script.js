@@ -1,68 +1,142 @@
-const main = document.createElement("div");
-document.body.append(main);
-
+// Create form element
 const form = document.createElement("form");
-form.id="myForm";
+form.id = "myForm";
 
-const labels = ["First Name:","Last Name:","Address:","Pincode:","Gender:","Choice of food:", "State:","Country:"];
-const ids = ["firstName","lastName","address","pincode","choiceFood","gender","state","country"];
-const types = ["text","text","text","number","text","text","text","text"];
+// Create form elements
+const formElements = [
+  {
+    label: "First Name:",
+    type: "text",
+    id: "firstName",
+    name: "firstName",
+    required: true,
+  },
+  {
+    label: "Last Name:",
+    type: "text",
+    id: "lastName",
+    name: "lastName",
+    required: true,
+  },
+  {
+    label: "Address:",
+    type: "text",
+    id: "address",
+    name: "address",
+    required: true,
+  },
+  {
+    label: "Pincode:",
+    type: "text",
+    id: "pincode",
+    name: "pincode",
+    required: true,
+  },
+  {
+    label: "Gender:",
+    type: "select",
+    id: "gender",
+    name: "gender",
+    required: true,
+    options: ["Select Gender", "Male", "Female", "Other"],
+  },
+  {
+    label: "Choice of Food:",
+    type: "text",
+    id: "food",
+    name: "food",
+    required: true,
+  },
+  { label: "State:", type: "text", id: "state", name: "state", required: true },
+  {
+    label: "Country:",
+    type: "text",
+    id: "country",
+    name: "country",
+    required: true,
+  },
+];
 
-for(i=0;i<labels.length;i++){
+// Add form elements to the form
+formElements.forEach((element) => {
   const label = document.createElement("label");
-  label.htmlFor=ids[i];
-  label.textContent=labels[i];
+  label.textContent = element.label;
+  label.setAttribute("for", element.id);
+
+  const input = document.createElement(
+    element.type === "select" ? "select" : "input"
+  );
+  input.type = element.type;
+  input.id = element.id;
+  input.name = element.name;
+  if (element.required) {
+    input.required = true;
+  }
+  if (element.type === "select") {
+    element.options.forEach((optionText) => {
+      const option = document.createElement("option");
+      option.value = optionText.toLowerCase();
+      option.textContent = optionText;
+      input.appendChild(option);
+    });
+  }
+
   form.appendChild(label);
-
-  form.appendChild(document.createElement("br"));
-
-  const input = document.createElement("input");
-  input.type=types[i];
-  input.id=ids[i];
-  input.name=ids[i];
   form.appendChild(input);
+});
 
-  form.appendChild(document.createElement("br"));
-}
+// Add submit button
+const submitButton = document.createElement("input");
+submitButton.type = "submit";
+submitButton.value = "Submit";
+form.appendChild(submitButton);
 
-const submit = document.createElement("input");
-submit.type="submit";
-submit.value="submit";
-form.appendChild(submit);
-main.appendChild(form);
+// Append form to the document body
+document.body.appendChild(form);
 
+// Create table element
 const table = document.createElement("table");
-table.className="table";
 table.id = "dataTable";
 
-const thead = document.createElement("thead");
-thead.className="thead-dark";
+// Create table header
+const tableHeader = document.createElement("thead");
+const tableHeaderRow = document.createElement("tr");
+[
+  "First Name",
+  "Last Name",
+  "Address",
+  "Pincode",
+  "Gender",
+  "Choice of Food",
+  "State",
+  "Country",
+].forEach((headerText) => {
+  const th = document.createElement("th");
+  th.textContent = headerText;
+  tableHeaderRow.appendChild(th);
+});
+tableHeader.appendChild(tableHeaderRow);
+table.appendChild(tableHeader);
 
-const trhead = document.createElement("tr");
-labels.forEach((header)=>{
-  const th=document.createElement("th");
-  th.scope="col";
-  th.textContent=header;
-  thead.appendChild(th);
-})
+// Create table body
+const tableBody = document.createElement("tbody");
+table.appendChild(tableBody);
 
-thead.appendChild(trhead);
-const tbody = document.createElement("tbody");
-table.appendChild(thead);
-table.appendChild(tbody);
+// Append table to the document body
 document.body.appendChild(table);
-
-
-form.addEventListener("submit", function(event){
+document.getElementById("myForm").addEventListener("submit", function (event) {
   event.preventDefault();
-     var formData = new FormData(this);
-     var newRow = document.createElement("tr");
-     var tableBody = document.querySelector("#dataTable tbody");
-     formData.forEach((value,key)=>{
-      var cell = document.createElement("td");
-      cell.textContent = value;
-      newRow.appendChild(cell);
-     })
+
+  var formData = new FormData(this);
+  var newRow = document.createElement("tr");
+  var tableBody = document.querySelector("#dataTable tbody");
+
+  formData.forEach(function (value, key) {
+    var cell = document.createElement("td");
+    cell.textContent = value;
+    newRow.appendChild(cell);
+  });
+
   tableBody.appendChild(newRow);
   document.getElementById("myForm").reset();
-})
+});
