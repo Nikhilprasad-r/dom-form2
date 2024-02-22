@@ -1,4 +1,3 @@
-// Create form element
 const form = document.createElement("form");
 form.id = "myForm";
 
@@ -34,11 +33,10 @@ const formElements = [
   },
   {
     label: "Gender:",
-    type: "select",
-    id: "gender",
+    type: "radio",
     name: "gender",
     required: true,
-    options: ["Select Gender", "Male", "Female", "Other"],
+    options: ["Male", "Female", "Other"],
   },
   {
     label: "Choice of Food:",
@@ -68,30 +66,47 @@ const formElements = [
 formElements.forEach((element) => {
   const label = document.createElement("label");
   label.textContent = element.label;
-  label.setAttribute("for", element.id);
 
-  const input = document.createElement(
-    element.type === "select" ? "select" : "input"
-  );
-  input.type = element.type;
-  input.id = element.id;
-  input.name = element.name;
-  if (element.required) {
-    input.required = true;
+  if (element.type !== "radio") {
+    label.setAttribute("for", element.id);
   }
-  if (element.type === "select") {
+
+  if (element.type === "radio") {
     element.options.forEach((optionText) => {
-      const option = document.createElement("option");
-      option.value = optionText.toLowerCase();
-      option.textContent = optionText;
-      input.appendChild(option);
+      const radioInput = document.createElement("input");
+      radioInput.type = "radio";
+      radioInput.name = element.name;
+      radioInput.value = optionText.toLowerCase();
+
+      const radioLabel = document.createElement("label");
+      radioLabel.textContent = optionText;
+
+      form.appendChild(radioInput);
+      form.appendChild(radioLabel);
     });
+  } else {
+    const input = document.createElement(
+      element.type === "select" ? "select" : "input"
+    );
+    input.type = element.type;
+    input.id = element.id;
+    input.name = element.name;
+    if (element.required) {
+      input.required = true;
+    }
+    if (element.type === "select") {
+      element.options.forEach((optionText) => {
+        const option = document.createElement("option");
+        option.value = optionText.toLowerCase();
+        option.textContent = optionText;
+        input.appendChild(option);
+      });
+    }
+
+    form.appendChild(label);
+    form.appendChild(input);
   }
-
-  form.appendChild(label);
-  form.appendChild(input);
 });
-
 // Add submit button
 const submitButton = document.createElement("input");
 submitButton.type = "submit";
