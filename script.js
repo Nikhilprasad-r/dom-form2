@@ -42,10 +42,17 @@ const formElements = [
   },
   {
     label: "Choice of Food:",
-    type: "text",
+    type: "select",
     id: "food",
     name: "food",
     required: true,
+    options: [
+      "Your preference",
+      "Vegetarian",
+      "Eggtarian",
+      "Non-Vegetarian",
+      "Vegan",
+    ],
   },
   { label: "State:", type: "text", id: "state", name: "state", required: true },
   {
