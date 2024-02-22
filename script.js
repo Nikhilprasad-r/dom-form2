@@ -1,10 +1,10 @@
 const H = document.createElement("h1");
 H.id = "title";
-H.textContent = "Fill the Details";
+H.textContent = "Fill the Details and Submit";
 document.body.appendChild(H);
 const P = document.createElement("p");
 P.id = "description";
-P.textContent = "Fill the Details";
+P.textContent = "Given data will be added to the table";
 document.body.appendChild(P);
 const formGroup = document.createElement("div");
 formGroup.className = "form-group";
