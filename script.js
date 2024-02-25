@@ -1,14 +1,7 @@
-const H = document.createElement("h1");
-H.id = "title";
-H.textContent = "Fill the Details and Submit";
-document.body.appendChild(H);
-const P = document.createElement("p");
-P.id = "description";
-P.textContent = "Given data will be added to the table";
-document.body.appendChild(P);
 const formGroup = document.createElement("div");
 formGroup.className = "form-group";
-
+const tableDiv = document.createElement("div");
+formGroup.className = "table-group";
 const form = document.createElement("form");
 form.id = "form";
 
@@ -108,7 +101,7 @@ formElements.forEach((element) => {
     );
     input.type = element.type;
     input.id = element.id;
-    input.placeholder = "Type here";
+    input.placeholder = element.name;
     input.name = element.name;
     if (element.required) {
       input.required = true;

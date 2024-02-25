@@ -1,9 +1,11 @@
-h1,p{
-  text-align: center;
+
+body{
+  display:flex;
+  flex-direction: row;
 }
 form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 70px  0 0 40px;
 }
 label {
   display: block;
@@ -34,13 +36,14 @@ input[type="submit"]:hover {
 table {
   border-collapse: collapse;
   width: 100%;
-  margin-top: 20px;
+
+  margin: 40px 70px;
 }
 th,
 td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 th {
   background-color: #f2f2f2;
